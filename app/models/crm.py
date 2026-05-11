@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, Boolean, Numeric, Text, DateTime, ForeignKey, SmallInteger, CHAR
+from sqlalchemy import Column, String, Boolean, Numeric, Text, DateTime, ForeignKey, SmallInteger, CHAR, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -7,6 +7,7 @@ from app.core.database import Base
 
 class Client(Base):
     __tablename__ = "clients"
+    __table_args__ = (UniqueConstraint("enterprise_id", "code", name="uq_client_code"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)
@@ -85,6 +86,7 @@ class ClientContact(Base):
 
 class Supplier(Base):
     __tablename__ = "suppliers"
+    __table_args__ = (UniqueConstraint("enterprise_id", "code", name="uq_supplier_code"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; padding: 40px; color: #333; }
+        .header { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        .header h1 { text-transform: uppercase; letter-spacing: 2px; margin: 0; }
+        .header-meta { text-align: right; }
+        .addresses { margin: 40px 0; display: grid; grid-template-columns: 1fr 1fr; }
+        .address-to { text-align: right; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: #f9f9f9; padding: 10px; text-align: left; }
+        th.right, td.right { text-align: right; }
+        td { padding: 10px; border-bottom: 1px solid #eee; }
+        .total-row { font-weight: bold; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Facture</h1>
+        <div class="header-meta"><strong>#INV-2024-001</strong><br>12 Mai 2026</div>
+    </div>
+    <div class="addresses">
+        <div><small>De :</small><br><strong>DocForge Inc.</strong><br>123 Tech Lane<br>Casablanca</div>
+        <div class="address-to"><small>Pour :</small><br><strong>Client Nom</strong><br>456 Business Road<br>Rabat</div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th class="right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Service Cloud (Mensuel)</td>
+                <td class="right">450.00 €</td>
+            </tr>
+            <tr>
+                <td>Développement Spécifique</td>
+                <td class="right">1 200.00 €</td>
+            </tr>
+            <tr class="total-row">
+                <td style="text-align: right; padding-top: 20px;">Total TTC</td>
+                <td class="right" style="padding-top: 20px;">1 650.00 €</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

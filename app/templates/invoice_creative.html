@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, sans-serif; padding: 0; background: #fff; margin: 0; color: #2d3436; }
+        .hero { background: #6c5ce7; color: white; padding: 40px; border-bottom-right-radius: 50px; margin-bottom: 40px; }
+        .hero h2 { margin: 0; font-size: 32px; letter-spacing: 1px; }
+        .hero p { opacity: 0.8; margin-top: 10px; }
+        .content { padding: 0 40px; display: flex; flex-direction: column; }
+        .client-card { background: #f9f9f9; padding: 20px; border-radius: 10px; border-left: 5px solid #a29bfe; margin-bottom: 30px; }
+        .items { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+        .items th { text-align: left; padding: 10px; color: #b2bec3; text-transform: uppercase; font-size: 12px; }
+        .items td { padding: 15px 10px; background: #fcfcfc; }
+        .items td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+        .items td:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; font-weight: bold; color: #6c5ce7; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h2>FACTURATION</h2>
+        <p>Merci de nous faire confiance pour votre projet créatif.</p>
+    </div>
+    <div class="content">
+        <div class="client-card">
+            <strong>Facturé à :</strong><br>
+            Studio Design Alpha<br>
+            contact@studioalpha.com
+        </div>
+        <table class="items">
+            <thead>
+                <tr>
+                    <th>Designation</th>
+                    <th style="text-align: right;">Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Création Identité Visuelle</td>
+                    <td style="text-align: right;">2 500 €</td>
+                </tr>
+                <tr>
+                    <td>Maquettes UI/UX</td>
+                    <td style="text-align: right;">1 800 €</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 style="text-align: right; color: #6c5ce7; font-size: 24px; margin-top: 30px;">Total Due: 4 300 €</h3>
+    </div>
+</body>
+</html>

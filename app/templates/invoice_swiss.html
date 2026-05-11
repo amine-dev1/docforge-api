@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: 'Helvetica', Arial, sans-serif; padding: 60px; color: #111; background: #fff; }
+        .huge-date { font-size: 40px; font-weight: 900; margin-bottom: 50px; letter-spacing: -1px; }
+        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; border-top: 2px solid #111; padding-top: 20px; }
+        .item { margin-bottom: 30px; }
+        .item-title { font-weight: bold; font-size: 18px; margin-bottom: 5px; }
+        .item-desc { font-size: 14px; color: #555; }
+        .price { font-weight: bold; text-align: right; }
+        .terms { font-size: 12px; color: #777; align-self: end; }
+        .total-box { background: #111; color: #fff; padding: 20px; margin-top: 50px; text-align: right; }
+    </style>
+</head>
+<body>
+    <div class="huge-date">01/26</div>
+    <div style="margin-bottom: 50px; font-size: 14px;">
+        <strong>DOCFORGE AG</strong><br>
+        Zurich, CH
+    </div>
+    <div class="grid">
+        <div>
+            <div class="item">
+                <div class="item-title">Consulting Stratégique</div>
+                <div class="item-desc">Analyse des flux de données et recommandations architecturales.</div>
+            </div>
+            <div class="item">
+                <div class="item-title">Développement Backend</div>
+                <div class="item-desc">Mise en place de l'API RESTful.</div>
+            </div>
+        </div>
+        <div>
+            <div class="price" style="margin-bottom: 40px;">CHF 4,500.-</div>
+            <div class="price">CHF 8,200.-</div>
+        </div>
+    </div>
+    <div class="grid" style="border-top: 1px solid #ccc; margin-top: 20px;">
+        <div class="terms">Conditions de paiement : Net 15<br>IBAN: CH12 3456 7890 1234 5678 9</div>
+        <div class="total-box">
+            <span style="font-size: 14px; text-transform: uppercase;">Total à payer</span><br>
+            <span style="font-size: 24px; font-weight: bold;">CHF 12,700.-</span>
+        </div>
+    </div>
+</body>
+</html>

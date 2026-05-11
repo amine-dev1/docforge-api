@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, Numeric, Text, DateTime, ForeignKey, Date
+from sqlalchemy import Column, String, Numeric, Text, DateTime, ForeignKey, Date, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -36,6 +36,7 @@ class Payment(Base):
 
 class PaymentAllocation(Base):
     __tablename__ = "payment_allocations"
+    __table_args__ = (UniqueConstraint("payment_id", "document_id", name="uq_payment_allocation"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     payment_id = Column(UUID(as_uuid=True), ForeignKey("payments.id", ondelete="CASCADE"), nullable=False)

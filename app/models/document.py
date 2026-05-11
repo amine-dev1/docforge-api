@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, Boolean, Numeric, Text, DateTime, ForeignKey, SmallInteger, Integer
+from sqlalchemy import Column, String, Boolean, Numeric, Text, DateTime, ForeignKey, SmallInteger, Integer, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -7,6 +7,7 @@ from app.core.database import Base
 
 class DocumentSequence(Base):
     __tablename__ = "document_sequences"
+    __table_args__ = (UniqueConstraint("enterprise_id", "doc_type", "year", name="uq_doc_seq"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)
@@ -17,6 +18,7 @@ class DocumentSequence(Base):
 
 class Document(Base):
     __tablename__ = "documents"
+    __table_args__ = (UniqueConstraint("enterprise_id", "number", name="uq_doc_number"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)
@@ -70,6 +72,10 @@ class Document(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
 
+    @property
+    def tenant_id(self):
+        return self.enterprise_id
+
     lines = relationship("DocumentLine", back_populates="document", cascade="all, delete-orphan")
     attachments = relationship("DocumentAttachment", back_populates="document", cascade="all, delete-orphan")
 
@@ -120,6 +126,7 @@ class DocumentAttachment(Base):
 
 class EnterpriseDocConfig(Base):
     __tablename__ = "enterprise_doc_config"
+    __table_args__ = (UniqueConstraint("enterprise_id", "doc_type", name="uq_doc_config"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)

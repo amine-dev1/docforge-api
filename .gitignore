@@ -31,7 +31,24 @@ ENV/
 # IDEs
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
 Thumbs.db
+
+# ── Credentials & Secrets ──
+google_drive.json
+google_drive_oauth.json
+drive_token.json
+credentials.json
+*.pem
+*.key
+
+# ── Generated assets ──
+assets/
+seed_output.txt
+
+# ── Gemini agent ──
+.gemini/

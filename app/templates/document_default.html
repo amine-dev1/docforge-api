@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #2d3436;
+            background: #fff;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* ── HEADER ────────────────────────────── */
+        .header {
+            background: {{ enterprise.primary_color or '#1a1a1a' }};
+            color: #fff;
+            padding: 35px 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .header-left .doc-number {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+        .header-right {
+            text-align: right;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        .header-right .date-label {
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        /* ── BODY ──────────────────────────────── */
+        .body { padding: 35px 45px; }
+
+        /* ── PARTIES ───────────────────────────── */
+        .parties {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 35px;
+        }
+        .party-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #b2bec3;
+            margin-bottom: 8px;
+        }
+        .party-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .party-detail {
+            font-size: 12px;
+            color: #636e72;
+            line-height: 1.6;
+        }
+
+        /* ── TABLE ─────────────────────────────── */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .items-table thead th {
+            background: #f5f6fa;
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #636e72;
+            border-bottom: 2px solid #dfe6e9;
+        }
+        .items-table thead th.right { text-align: right; }
+        .items-table tbody td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 12px;
+        }
+        .items-table tbody td.right { text-align: right; }
+        .items-table tbody tr:last-child td { border-bottom: none; }
+
+        /* ── TOTALS ────────────────────────────── */
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .totals-table {
+            width: 280px;
+            border-collapse: collapse;
+        }
+        .totals-table td {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        .totals-table td.label { text-align: right; color: #636e72; }
+        .totals-table td.value { text-align: right; font-weight: 600; }
+        .totals-table tr.grand-total td {
+            padding-top: 12px;
+            border-top: 2px solid {{ enterprise.primary_color or '#1a1a1a' }};
+            font-size: 16px;
+            font-weight: 700;
+            color: {{ enterprise.primary_color or '#1a1a1a' }};
+        }
+
+        /* ── FOOTER ────────────────────────────── */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .notes {
+            font-size: 11px;
+            color: #636e72;
+            margin-bottom: 15px;
+        }
+        .bank-info {
+            background: #f5f6fa;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: #636e72;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ── HEADER ── -->
+    <div class="header">
+        <div class="header-left">
+            <h1>{{ doc_type_label }}</h1>
+            <div class="doc-number">N° {{ document.number }}</div>
+        </div>
+        <div class="header-right">
+            <div class="date-label">Date d'émission</div>
+            <div style="font-size: 14px; font-weight: 600;">{{ issued_date }}</div>
+            {% if due_date %}
+            <div class="date-label" style="margin-top: 10px;">Date d'échéance</div>
+            <div style="font-size: 14px; font-weight: 600;">{{ due_date }}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="body">
+        <!-- ── PARTIES ── -->
+        <div class="parties">
+            <div>
+                <div class="party-label">Émetteur</div>
+                <div class="party-name">{{ enterprise.legal_name }}</div>
+                <div class="party-detail">
+                    {% if enterprise.address_street %}{{ enterprise.address_street }}<br>{% endif %}
+                    {% if enterprise.address_city %}{{ enterprise.address_city }} {{ enterprise.address_zip or '' }}{% endif %}
+                    {% if enterprise.ice %}<br>ICE : {{ enterprise.ice }}{% endif %}
+                    {% if enterprise.rc %}<br>RC : {{ enterprise.rc }}{% endif %}
+                    {% if enterprise.if_number %}<br>IF : {{ enterprise.if_number }}{% endif %}
+                    {% if enterprise.phone_main %}<br>Tél : {{ enterprise.phone_main }}{% endif %}
+                    {% if enterprise.email_general %}<br>{{ enterprise.email_general }}{% endif %}
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <div class="party-label">Client</div>
+                <div class="party-name">{{ client.legal_name }}</div>
+                <div class="party-detail">
+                    {% if client.address_street %}{{ client.address_street }}<br>{% endif %}
+                    {% if client.address_city %}{{ client.address_city }} {{ client.address_zip or '' }}{% endif %}
+                    {% if client.ice %}<br>ICE : {{ client.ice }}{% endif %}
+                    {% if client.rc %}<br>RC : {{ client.rc }}{% endif %}
+                    {% if client.phone %}<br>Tél : {{ client.phone }}{% endif %}
+                    {% if client.email %}<br>{{ client.email }}{% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- ── ITEMS TABLE ── -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 40%;">Désignation</th>
+                    <th class="right" style="width: 10%;">Qté</th>
+                    <th class="right" style="width: 15%;">P.U. HT</th>
+                    <th class="right" style="width: 10%;">TVA</th>
+                    <th class="right" style="width: 20%;">Total HT</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in lines %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ line.description }}</td>
+                    <td class="right">{{ line.quantity }}</td>
+                    <td class="right">{{ "%.2f"|format(line.unit_price_ht) }}</td>
+                    <td class="right">{{ line.tax_rate_value }}%</td>
+                    <td class="right">{{ "%.2f"|format(line.line_total_ht) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- ── TOTALS ── -->
+        <div class="totals-section">
+            <table class="totals-table">
+                <tr>
+                    <td class="label">Sous-total HT</td>
+                    <td class="value">{{ "%.2f"|format(document.subtotal_ht) }} {{ document.currency }}</td>
+                </tr>
+                {% if document.total_discount and document.total_discount > 0 %}
+                <tr>
+                    <td class="label">Remise</td>
+                    <td class="value">-{{ "%.2f"|format(document.total_discount) }} {{ document.currency }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td class="label">TVA</td>
+                    <td class="value">{{ "%.2f"|format(document.total_tax) }} {{ document.currency }}</td>
+                </tr>
+                <tr class="grand-total">
+                    <td class="label">Total TTC</td>
+                    <td class="value">{{ "%.2f"|format(document.total_ttc) }} {{ document.currency }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ── FOOTER ── -->
+        <div class="footer">
+            {% if document.notes %}
+            <div class="notes"><strong>Notes :</strong> {{ document.notes }}</div>
+            {% endif %}
+
+            {% if enterprise.bank_name or enterprise.bank_rib or enterprise.bank_iban %}
+            <div class="bank-info">
+                <div>
+                    {% if enterprise.bank_name %}<strong>Banque :</strong> {{ enterprise.bank_name }}<br>{% endif %}
+                    {% if enterprise.bank_rib %}<strong>RIB :</strong> {{ enterprise.bank_rib }}{% endif %}
+                </div>
+                <div>
+                    {% if enterprise.bank_iban %}<strong>IBAN :</strong> {{ enterprise.bank_iban }}<br>{% endif %}
+                    {% if enterprise.bank_swift %}<strong>SWIFT :</strong> {{ enterprise.bank_swift }}{% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if enterprise.payment_conditions %}
+            <div class="notes" style="margin-top: 15px;">
+                <strong>Conditions de paiement :</strong> {{ enterprise.payment_conditions }}
+            </div>
+            {% endif %}
+
+            {% if enterprise.invoice_footer %}
+            <div class="notes" style="margin-top: 10px; font-style: italic;">{{ enterprise.invoice_footer }}</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

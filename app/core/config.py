@@ -22,6 +22,11 @@ class Settings(BaseSettings):
     # CORS
     CORS_ORIGINS: str = "http://localhost:3000,http://localhost:5173"
 
+    # Google Drive
+    GOOGLE_DRIVE_CREDENTIALS: str = "google_drive_oauth.json"
+    GOOGLE_DRIVE_FOLDER_ID: str = ""
+    GOOGLE_DRIVE_TOKEN_PATH: str = "drive_token.json"
+
     @property
     def cors_origins_list(self) -> List[str]:
         return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; border-top: 10px solid #2c3e50; padding: 30px; color: #333; }
+        .title { color: #2c3e50; font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .meta-bar { background: #ecf0f1; padding: 15px; margin-top: 20px; font-size: 14px; }
+        .meta-bar span { margin-right: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th { background: #2c3e50; color: white; padding: 12px; text-align: left; }
+        th.center, td.center { text-align: center; }
+        th.right, td.right { text-align: right; }
+        td { padding: 12px; border-bottom: 1px solid #bdc3c7; }
+        .totals { margin-top: 30px; float: right; width: 300px; }
+        .totals table th { background: transparent; color: #2c3e50; text-align: right; padding-right: 15px; }
+    </style>
+</head>
+<body>
+    <div class="title">DEVIS PROFESSIONNEL</div>
+    <div style="font-size: 14px; color: #7f8c8d;">Émis par: DocForge Corporate</div>
+    <div class="meta-bar">
+        <span><strong>Détails :</strong> Projet Ref Alpha</span> | 
+        <span><strong>Validité :</strong> 30 jours</span> | 
+        <span><strong>Date :</strong> 12/05/2026</span>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Prestation</th>
+                <th class="center">Qté</th>
+                <th class="right">PU (HT)</th>
+                <th class="right">Total (HT)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Audit Infrastructure</td>
+                <td class="center">1</td>
+                <td class="right">1500.00 €</td>
+                <td class="right">1500.00 €</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="totals">
+        <table>
+            <tr><th>Sous-total HT:</th><td class="right">1500.00 €</td></tr>
+            <tr><th>TVA (20%):</th><td class="right">300.00 €</td></tr>
+            <tr><th><strong style="font-size: 18px;">Total TTC:</strong></th><td class="right"><strong style="font-size: 18px;">1800.00 €</strong></td></tr>
+        </table>
+    </div>
+</body>
+</html>

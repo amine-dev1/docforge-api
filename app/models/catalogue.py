@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, Boolean, Numeric, Text, DateTime, ForeignKey, SmallInteger, Integer
+from sqlalchemy import Column, String, Boolean, Numeric, Text, DateTime, ForeignKey, SmallInteger, Integer, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import func
@@ -7,6 +7,7 @@ from app.core.database import Base
 
 class UnitOfMeasure(Base):
     __tablename__ = "units_of_measure"
+    __table_args__ = (UniqueConstraint("enterprise_id", "symbol", name="uq_unit_symbol"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)
@@ -17,6 +18,7 @@ class UnitOfMeasure(Base):
 
 class TaxRate(Base):
     __tablename__ = "tax_rates"
+    __table_args__ = (UniqueConstraint("enterprise_id", "rate", "type", name="uq_tax_rate"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)
@@ -30,6 +32,7 @@ class TaxRate(Base):
 
 class ProductCategory(Base):
     __tablename__ = "product_categories"
+    __table_args__ = (UniqueConstraint("enterprise_id", "code", name="uq_prod_cat_code"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)
@@ -44,6 +47,7 @@ class ProductCategory(Base):
 
 class Product(Base):
     __tablename__ = "products"
+    __table_args__ = (UniqueConstraint("enterprise_id", "code", name="uq_product_code"),)
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     enterprise_id = Column(UUID(as_uuid=True), ForeignKey("enterprises.id", ondelete="CASCADE"), nullable=False)

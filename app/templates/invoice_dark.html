@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { background: #1a1a1a; color: #ecf0f1; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 50px; margin: 0; }
+        .wrapper { border-radius: 10px; background: #222f3e; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header { border-left: 4px solid #00d2d3; padding-left: 20px; margin-bottom: 40px; }
+        .header h1 { margin: 0; color: #fff; font-weight: 300; letter-spacing: 2px; }
+        .header span { color: #00d2d3; font-weight: bold; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        .table th { border-bottom: 1px solid #576574; padding: 10px; text-align: left; color: #8395a7; font-weight: normal; }
+        .table td { padding: 15px 10px; border-bottom: 1px solid #341f; }
+        .total { text-align: right; margin-top: 30px; font-size: 20px; color: #00d2d3; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>INVOICE</h1>
+            <span>Tech Solutions Ltd.</span>
+        </div>
+        <div>
+            <p style="color: #c8d6e5;">Billed to: <strong>Cyberdyne Systems</strong></p>
+            <p style="color: #c8d6e5;">Date: <strong>2026-05-12</strong></p>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th style="text-align: right;">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>API Integration Services</td>
+                    <td style="text-align: right;">$ 1,200.00</td>
+                </tr>
+                <tr>
+                    <td>Database Migration</td>
+                    <td style="text-align: right;">$ 850.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="total">
+            <strong>TOTAL: $ 2,050.00</strong>
+        </div>
+    </div>
+</body>
+</html>

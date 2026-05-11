@@ -8,6 +8,7 @@ class Enterprise(Base):
     __tablename__ = "enterprises"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    short_id = Column(String(20), unique=True)
     slug = Column(String(100), unique=True, nullable=False)
 
     # Dénomination
@@ -93,3 +94,7 @@ class Enterprise(Base):
 
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+    @property
+    def tenant_id(self):
+        return self.short_id
