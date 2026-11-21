@@ -1,6 +1,6 @@
-# Mise en ligne de DocForge (Fly.io + Vercel)
+# Mise en ligne de DocForge (Fly.io + Netlify)
 
-Rien n'est encore créé ni déployé. Backend sur Fly.io, frontend sur Vercel (compte d'Amine, créé par lui).
+Rien n'est encore créé ni déployé. Backend sur Fly.io, frontend sur Netlify (compte d'Amine, créé par lui).
 
 ## 1. Backend sur Fly.io (`backend/`)
 Les clés ne sont JAMAIS dans le dépôt : elles vont dans les « secrets » Fly.
@@ -21,14 +21,14 @@ Vérifier : `https://docforge-api-amine.fly.dev/api/v1/health` doit répondre `h
   sans bloquer ; le PDF se génère à la demande, sans Drive.
 - Le serveur s'arrête quand il est inactif : la première requête après une pause est plus lente.
 
-## 2. Frontend sur Vercel (`frontend/`)
-Dans le compte Vercel d'Amine : « Add New > Project », importer le dépôt, puis :
-- **Root Directory** : `frontend`
-- **Framework Preset** : Vite (commande de build `npm run build`, dossier `dist`)
-- **Variables d'environnement** : aucune. `vercel.json` redirige `/api/*` vers le backend Fly et gère les routes de l'application.
-  Si le nom Fly change, modifier l'adresse dans `frontend/vercel.json`.
+## 2. Frontend sur Netlify (`frontend/`)
+Dans le compte Netlify d'Amine : « Add new site > Import an existing project », choisir le dépôt `amine-dev1/docforge-api`, puis :
+- **Base directory** : `frontend` (c'est là que se trouve `netlify.toml`)
+- **Build command** : `npm run build` — **Publish directory** : `dist` (déjà dans `netlify.toml`, Netlify les propose seul)
+- **Variables d'environnement** : aucune. `netlify.toml` redirige `/api/*` vers le backend Fly et gère les routes de l'application.
+  Si le nom Fly change, modifier l'adresse dans `frontend/netlify.toml`.
 
 ## 3. Après la mise en ligne
-- **Webhook Stripe** : l'adresse affichée dans l'application utilise le domaine Vercel
-  (`https://<domaine>/api/v1/webhooks/stripe/<id>`) : la copier dans Stripe.
-- **CORS** : inutile avec la redirection Vercel (les appels passent par le même domaine).
+- **Webhook Stripe** : l'adresse affichée dans l'application utilise le domaine Netlify
+  (`https://<site>.netlify.app/api/v1/webhooks/stripe/<id>`) : la copier dans Stripe.
+- **CORS** : inutile avec la redirection Netlify (les appels passent par le même domaine).

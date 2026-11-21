@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "https://docforge-api-amine.fly.dev/api/:path*" },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
-  ]
-}

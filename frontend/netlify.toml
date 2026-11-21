@@ -1,0 +1,23 @@
+# Netlify settings for the DocForge frontend. See ../DEPLOY.md.
+# In Netlify, set "Base directory" to `frontend`: this file is read from there.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# The frontend calls the API with relative URLs (/api/v1/...). Netlify forwards them to the Fly.io backend,
+# so the browser only talks to one domain (no CORS). If the Fly app name changes, change it here.
+# Order matters: the first matching rule wins.
+[[redirects]]
+  from = "/api/*"
+  to = "https://docforge-api-amine.fly.dev/api/:splat"
+  status = 200
+  force = true
+
+# Single-page app: any other path serves index.html (React Router handles it).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
