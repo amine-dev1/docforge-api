@@ -1,0 +1,254 @@
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+
+:root {
+  /* Neutres */
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --surface-muted: #f1f2f4;
+  --border: #e4e5e9;
+  --text: #15171c;
+  --text-muted: #6b7078;
+  --text-faint: #9a9fa6;
+
+  /* Accent marque */
+  --accent: #5167FC;
+  --accent-hover: #4558D6;
+  --accent-contrast: #ffffff;
+
+  /* Touches de couleur secondaires — usage ponctuel et décoratif uniquement,
+     jamais pour un statut (réservés, voir Statuts documents) */
+  --accent-secondary: #8b5cf6;
+  --accent-secondary-hover: #7c4ff0;
+  --highlight: #f59e0b;
+
+  /* Statuts documents */
+  --status-draft: #9a9fa6;
+  --status-sent: var(--accent);
+  --status-paid: #1a9c6b;
+  --status-overdue: #d6433c;
+  --status-cancelled: #c7cad1;
+
+  /* Argent */
+  --money-positive: #1a9c6b;
+  --money-negative: #d6433c;
+
+  /* Focus */
+  --focus-ring: color-mix(in srgb, var(--accent) 30%, transparent);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  color-scheme: light dark;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0f1115;
+  --surface: #17191f;
+  --surface-muted: #1d2027;
+  --border: #2a2d36;
+  --text: #f1f2f4;
+  --text-muted: #9a9fa6;
+  --text-faint: #6b7078;
+  --accent: #5167FC;
+  --accent-hover: #4558D6;
+  --accent-contrast: #ffffff;
+  --accent-secondary: #a78bfa;
+  --accent-secondary-hover: #bba5fc;
+  --highlight: #fbbf24;
+}
+
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-secondary-hover: var(--accent-secondary-hover);
+  --color-highlight: var(--highlight);
+  --color-status-draft: var(--status-draft);
+  --color-status-sent: var(--status-sent);
+  --color-status-paid: var(--status-paid);
+  --color-status-overdue: var(--status-overdue);
+  --color-status-cancelled: var(--status-cancelled);
+  --color-money-positive: var(--money-positive);
+  --color-money-negative: var(--money-negative);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Tailwind's preflight resets button cursor to default; restore the pointer
+   on every clickable control so the UI reads as clickable. */
+a[href],
+button:not(:disabled),
+[role='button']:not([aria-disabled='true']),
+[role='option']:not([data-disabled]),
+[role='tab'],
+label[for],
+summary {
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+table {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Press feedback — any clickable element (buttons, table rows, menu items) */
+.press {
+  transition: transform 160ms var(--ease-out);
+}
+.press:active {
+  transform: scale(0.97);
+}
+
+/* Focus ring, used instead of the browser default outline */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+
+/* Page transition — subtle, short (frequent navigation), prevents the
+   content swap from feeling abrupt. */
+.page-transition {
+  animation: page-enter 180ms var(--ease-out);
+}
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Color/shadow transitions are deliberate exceptions for control feedback.
+   Menu movement uses transform/opacity only; keyboard item focus is immediate. */
+.unified-field { min-width: 0; text-align: left; }
+.unified-control {
+  min-width: 0;
+  height: 52px;
+  padding: 0 12px;
+  border: 1px solid var(--field-border, var(--border));
+  border-radius: 6px;
+  background: var(--field-bg, var(--surface-muted));
+  color: var(--field-text, var(--text));
+  font-family: inherit;
+  box-shadow: 0 0 0 2px transparent;
+}
+.unified-control::placeholder { color: var(--field-muted, var(--text-muted)); }
+.unified-control:disabled { opacity: 0.5; cursor: not-allowed; }
+.unified-control:read-only:not(button) { color: var(--field-muted, var(--text-muted)); }
+.unified-control.unified-textarea { height: auto; min-height: 104px; padding: 14px 12px; resize: vertical; }
+.floating-field { position: relative; }
+.floating-field > .unified-control { padding-top: 16px; padding-bottom: 2px; }
+.floating-field > .unified-textarea { padding-top: 24px; padding-bottom: 10px; }
+.floating-field > label {
+  position: absolute;
+  top: 26px;
+  left: 13px;
+  max-width: calc(100% - 26px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  translate: 0 -50%;
+  transform-origin: left center;
+  pointer-events: none;
+  color: var(--field-muted, var(--text-muted));
+  font-size: 14px;
+  transition: scale 180ms ease, translate 180ms ease;
+}
+.floating-field[data-pinned] > label,
+.floating-field > .unified-control:is(:focus, :not(:placeholder-shown), :autofill) ~ label {
+  scale: 0.78;
+  translate: 0 -112%;
+}
+.field-control {
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+.field-control:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+.field-control[aria-invalid='true'] {
+  border-color: var(--status-overdue);
+}
+.field-control[aria-invalid='true']:focus {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--status-overdue) 25%, transparent);
+}
+.select-chevron {
+  transition: transform 150ms var(--ease-out);
+}
+.select-trigger[data-state='open'] .select-chevron {
+  transform: rotate(180deg);
+}
+.select-content {
+  min-width: var(--trigger-width, 0px);
+  max-width: calc(100vw - 24px);
+  max-height: min(var(--panel-max-height, 20rem), var(--panel-available-height, calc(100vh - 24px)));
+  transform-origin: var(--panel-transform-origin, center top);
+}
+.select-content[data-state='open'] {
+  animation: select-enter 180ms var(--ease-out);
+}
+.select-content[data-state='closed'] {
+  animation: select-exit 130ms var(--ease-out) forwards;
+}
+@keyframes select-enter {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes select-exit {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
+.select-option[data-highlighted] {
+  background-color: var(--surface-muted);
+}
+.select-option[data-state='checked'] {
+  font-weight: 500;
+}
+@media (hover: hover) and (pointer: fine) {
+  .field-control:not(:disabled):not(:read-only):not(:focus):not([aria-invalid='true']):hover,
+  button.field-control:not(:disabled):not(:focus):not([aria-invalid='true']):hover {
+    border-color: var(--text-faint);
+  }
+  .select-content[data-input='pointer'] .select-option:hover:not([data-disabled]) {
+    background-color: var(--surface-muted);
+    transition: background-color 100ms ease;
+  }
+  .interactive-row {
+    transition: background-color 120ms ease;
+  }
+  .interactive-row:hover {
+    background-color: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  }
+}

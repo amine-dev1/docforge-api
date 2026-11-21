@@ -1,0 +1,32 @@
+# Fly.io settings for the DocForge API. See ../DEPLOY.md.
+# Change `app` if the name is taken: it becomes https://<app>.fly.dev
+app = 'docforge-api-amine'
+# Close to the Neon database (aws us-east-2).
+primary_region = 'iad'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  APP_ENV = 'production'
+  DEBUG = 'false'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # Stops when idle (saves money), restarts on the next request: the first call after a pause is slower.
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    grace_period = '20s'
+    interval = '2m'
+    timeout = '10s'
+    method = 'GET'
+    path = '/api/v1/health'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

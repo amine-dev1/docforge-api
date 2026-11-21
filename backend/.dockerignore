@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+*.log
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+env/
+.git/
+*token*.json
+*oauth*.json
